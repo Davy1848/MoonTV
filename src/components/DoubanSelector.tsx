@@ -41,14 +41,11 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
 
   // 电影的一级选择器选项
   const moviePrimaryOptions: SelectorOption[] = [
-    // 热门与评分维度
     { label: '热门电影', value: '热门' },
     { label: '最新上映', value: '最新' },
     { label: '豆瓣高分', value: '豆瓣高分' },
     { label: '冷门佳片', value: '冷门佳片' },
     { label: 'Netflix', value: 'Netflix' },
-    
-    // 核心类型
     { label: '动作片', value: '动作' },
     { label: '喜剧片', value: '喜剧' },
     { label: '爱情片', value: '爱情' },
@@ -56,28 +53,15 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     { label: '恐怖片', value: '恐怖' },
     { label: '悬疑片', value: '悬疑' },
     { label: '纪录片', value: '纪录' },
-    
-    // 子类型
     { label: '动画片', value: '动画' },
     { label: '犯罪片', value: '犯罪' },
     { label: '战争片', value: '战争' },
     { label: '奇幻片', value: '奇幻' },
     { label: '剧情片', value: '剧情' },
-    
-    // 厂牌/系列
     { label: '漫威系列', value: '漫威' },
-    { label: '迪士尼', value: '迪士尼' },
     { label: 'DC系列', value: 'DC' },
-    { label: '哈利波特', value: '哈利波特' },
-    { label: 'Netflix原创', value: 'Netflix原创' },
-    
-    // 年代区间
-    { label: '2025年新片', value: '2025年' },
-    { label: '2024年新片', value: '2024年' },
-    { label: '2023年新片', value: '2023年' },
-    { label: '2020-2022', value: '2020至2022' },
-    { label: '2010-2019', value: '2010至2019' },
-    { label: '经典老片(2000前)', value: '经典老片' },
+    { label: 'Pixar', value: 'Pixar' },
+    { label: '迪士尼', value: '迪士尼' },
   ];
 
   // 电影的二级选择器选项
@@ -97,66 +81,51 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     { label: '高分纪录片', value: 'doc_high' },
   ];
 
-  // 电视剧一级选择器选项
-  const tvPrimaryOptions: SelectorOption[] = [
-    { label: '全部剧集', value: '全部剧集' },
-    { label: '热门剧集', value: '热门剧集' },
-    { label: '最新上线', value: '最新上线' },
-    { label: '豆瓣高分', value: '剧集高分' },
-    { label: '热门新剧', value: '热门新剧' },
-    { label: '经典剧集', value: '经典剧集' },
+  // 电视剧选择器选项
+  const tvOptions: SelectorOption[] = [
+  { label: '全部剧集', value: 'tv' },
+  { label: '热门推荐', value: 'tv_hot' },
+  { label: '高分精选', value: 'tv_high_rated' },
+  { label: '新剧上线', value: 'tv_new' },
+  { label: '中国大陆', value: 'tv_china_mainland' },
+  { label: '中国香港', value: 'tv_hongkong' },
+  { label: '中国台湾', value: 'tv_taiwan' },
+  { label: '新加坡', value: 'tv_singapore' },
+  { label: '马来西亚', value: 'tv_malaysia' },
+  { label: '日本', value: 'tv_japanese' },
+  { label: '韩国', value: 'tv_korean' },
+  { label: '朝鲜', value: 'tv_northkorea' },
+  { label: '美国', value: 'tv_usa' },
+  { label: '英国', value: 'tv_uk' },
+  { label: '加拿大', value: 'tv_canada' },
+  { label: '澳大利亚', value: 'tv_australia' },
+  { label: '德国', value: 'tv_germany' },
+  { label: '法国', value: 'tv_france' },
+  { label: '意大利', value: 'tv_italy' },
+  { label: '西班牙', value: 'tv_spain' },
+  { label: '俄罗斯', value: 'tv_russia' },
+  { label: '泰国', value: 'tv_thailand' },
+  { label: '印度尼西亚', value: 'tv_indonesia' },
+  { label: '菲律宾', value: 'tv_philippines' },
+  { label: '越南', value: 'tv_vietnam' },
+  { label: '印度', value: 'tv_india' },
+  { label: '巴基斯坦', value: 'tv_pakistan' },
+  { label: '科幻', value: 'tv_genre_scifi' },
+  { label: '悬疑', value: 'tv_genre_mystery' },
+  { label: '爱情', value: 'tv_genre_romance' },
+  { label: '喜剧', value: 'tv_genre_comedy' },
+  { label: '动作', value: 'tv_genre_action' },
+  { label: '动漫剧集', value: 'tv_animation' },
+  { label: '纪录片', value: 'tv_documentary' },
+  { label: '迷你剧', value: 'tv_miniseries' },
   ];
 
-  // 电视剧二级选择器选项
-  const tvSecondaryOptions: SelectorOption[] = [
-    { label: '国产剧', value: '国产剧' },
-    { label: '欧美剧', value: '欧美剧' },
-    { label: '亚洲剧', value: '亚洲剧' },
-    { label: 'Netflix', value: 'Netflix' },
-    
-    // 国产剧细分
-    { label: '国产-现代都市', value: '国产现代都市' },
-    { label: '国产-古装历史', value: '国产古装历史' },
-    { label: '国产-悬疑推理', value: '国产悬疑推理' },
-    { label: '国产-青春校园', value: '国产青春校园' },
-    { label: '国产-家庭伦理', value: '国产家庭伦理' },
-    { label: '国产-军旅抗战', value: '国产军旅抗战' },
-    
-    // 欧美剧细分
-    { label: '美剧-科幻', value: '美剧科幻' },
-    { label: '美剧-犯罪', value: '美剧犯罪' },
-    { label: '英剧-古典', value: '英剧古典' },
-    { label: '英剧-喜剧', value: '英剧喜剧' },
-    { label: '欧洲剧-悬疑', value: '欧洲剧悬疑' },
-    { label: 'Netflix-原创剧集', value: 'Netflix原创剧集' },
-    
-    // 亚洲剧细分
-    { label: '日剧-爱情', value: '日剧爱情' },
-    { label: '日剧-悬疑', value: '日剧悬疑' },
-    { label: '韩剧-浪漫', value: '韩剧浪漫' },
-    { label: '韩剧-狗血', value: '韩剧狗血' },
-    { label: '泰剧-爱情', value: '泰剧爱情' },
-    
-    // 特殊类型
-    { label: '动漫剧集', value: '动漫剧集' },
-    { label: '纪录片', value: '纪录片' },
-    { label: '真人秀', value: '真人秀' },
-    { label: '科幻剧集', value: '科幻剧集' },
-    { label: '迷你剧', value: '迷你剧' },
-  ];
-
-  // 综艺一级选择器选项
-  const showPrimaryOptions: SelectorOption[] = [
+  // 综艺选择器选项
+  const showOptions: SelectorOption[] = [
     { label: '全部综艺', value: 'show_all' },
     { label: '热门综艺', value: 'show_hot' },
     { label: '高分综艺', value: 'show_high' },
     { label: '新上线综艺', value: 'show_new' },
-    { label: '经典综艺', value: 'show_classic' },
-  ];
-
-  // 综艺二级选择器选项
-  const showSecondaryOptions: SelectorOption[] = [
-    // 综艺类型
     { label: '真人秀', value: 'show_reality' },
     { label: '脱口秀', value: 'show_talk' },
     { label: '竞技比赛', value: 'show_competition' },
@@ -165,8 +134,6 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     { label: '搞笑综艺', value: 'show_comedy' },
     { label: '生活体验', value: 'show_life' },
     { label: '户外冒险', value: 'show_outdoor' },
-    
-    // 地区分类
     { label: '中国大陆', value: 'show_cn' },
     { label: '中国台湾', value: 'show_tw' },
     { label: '中国香港', value: 'show_hk' },
@@ -174,26 +141,10 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     { label: '日本', value: 'show_jp' },
     { label: '欧美', value: 'show_ww' },
     { label: '东南亚', value: 'show_sea' },
-    
-    // 平台特色
-    { label: 'Netflix原创', value: 'show_netflix' },
+    { label: 'Netflix', value: 'show_netflix' },
     { label: 'B站独播', value: 'show_bilibili' },
     { label: '芒果TV', value: 'show_mango' },
   ];
-
-  // 获取当前类型的选项
-  const getOptionsByType = () => {
-    switch (type) {
-      case 'movie':
-        return { primary: moviePrimaryOptions, secondary: movieSecondaryOptions };
-      case 'tv':
-        return { primary: tvPrimaryOptions, secondary: tvSecondaryOptions };
-      case 'show':
-        return { primary: showPrimaryOptions, secondary: showSecondaryOptions };
-      default:
-        return { primary: [], secondary: [] };
-    }
-  };
 
   // 更新指示器位置的通用函数
   const updateIndicatorPosition = (
@@ -209,8 +160,7 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
       buttonRefs.current[activeIndex] &&
       containerRef.current
     ) {
-      // 使用requestAnimationFrame确保DOM已更新
-      const rafId = requestAnimationFrame(() => {
+      const timeoutId = setTimeout(() => {
         const button = buttonRefs.current[activeIndex];
         const container = containerRef.current;
         if (button && container) {
@@ -224,24 +174,21 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
             });
           }
         }
-      });
-      return () => cancelAnimationFrame(rafId);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
-    return () => {};
   };
 
-  // 组件挂载和更新时计算初始位置
+  // 组件挂载时立即计算初始位置
   useEffect(() => {
-    const { primary, secondary } = getOptionsByType();
-    
     // 主选择器初始位置
-    if (primary.length > 0) {
-      const activeValue = primarySelection || primary[0].value;
-      const activeIndex = primary.findIndex(opt => opt.value === activeValue);
-      const normalizedIndex = activeIndex >= 0 ? activeIndex : 0;
-      
-      const cleanup = updateIndicatorPosition(
-        normalizedIndex,
+    if (type === 'movie') {
+      const activeIndex = moviePrimaryOptions.findIndex(
+        (opt) =>
+          opt.value === (primarySelection || moviePrimaryOptions[0].value)
+      );
+      updateIndicatorPosition(
+        activeIndex,
         primaryContainerRef,
         primaryButtonRefs,
         setPrimaryIndicatorStyle
@@ -249,57 +196,80 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     }
 
     // 副选择器初始位置
-    if (secondary.length > 0) {
-      const activeValue = secondarySelection || secondary[0].value;
-      const activeIndex = secondary.findIndex(opt => opt.value === activeValue);
-      const normalizedIndex = activeIndex >= 0 ? activeIndex : 0;
-      
-      const cleanup = updateIndicatorPosition(
-        normalizedIndex,
+    let secondaryActiveIndex = -1;
+    if (type === 'movie') {
+      secondaryActiveIndex = movieSecondaryOptions.findIndex(
+        (opt) =>
+          opt.value === (secondarySelection || movieSecondaryOptions[0].value)
+      );
+    } else if (type === 'tv') {
+      secondaryActiveIndex = tvOptions.findIndex(
+        (opt) => opt.value === (secondarySelection || tvOptions[0].value)
+      );
+    } else if (type === 'show') {
+      secondaryActiveIndex = showOptions.findIndex(
+        (opt) => opt.value === (secondarySelection || showOptions[0].value)
+      );
+    }
+
+    if (secondaryActiveIndex >= 0) {
+      updateIndicatorPosition(
+        secondaryActiveIndex,
         secondaryContainerRef,
         secondaryButtonRefs,
         setSecondaryIndicatorStyle
       );
     }
-  }, [type, primarySelection, secondarySelection]);
+  }, [type]); // 只在type变化时重新计算
 
-  // 监听窗口大小变化，重新计算指示器位置
+  // 监听主选择器变化
   useEffect(() => {
-    const handleResize = () => {
-      const { primary, secondary } = getOptionsByType();
-      
-      // 更新主选择器
-      if (primary.length > 0) {
-        const activeValue = primarySelection || primary[0].value;
-        const activeIndex = primary.findIndex(opt => opt.value === activeValue);
-        const normalizedIndex = activeIndex >= 0 ? activeIndex : 0;
-        
-        updateIndicatorPosition(
-          normalizedIndex,
-          primaryContainerRef,
-          primaryButtonRefs,
-          setPrimaryIndicatorStyle
-        );
-      }
-      
-      // 更新副选择器
-      if (secondary.length > 0) {
-        const activeValue = secondarySelection || secondary[0].value;
-        const activeIndex = secondary.findIndex(opt => opt.value === activeValue);
-        const normalizedIndex = activeIndex >= 0 ? activeIndex : 0;
-        
-        updateIndicatorPosition(
-          normalizedIndex,
-          secondaryContainerRef,
-          secondaryButtonRefs,
-          setSecondaryIndicatorStyle
-        );
-      }
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [type, primarySelection, secondarySelection]);
+    if (type === 'movie') {
+      const activeIndex = moviePrimaryOptions.findIndex(
+        (opt) => opt.value === primarySelection
+      );
+      const cleanup = updateIndicatorPosition(
+        activeIndex,
+        primaryContainerRef,
+        primaryButtonRefs,
+        setPrimaryIndicatorStyle
+      );
+      return cleanup;
+    }
+  }, [primarySelection]);
+
+  // 监听副选择器变化
+  useEffect(() => {
+    let activeIndex = -1;
+    let options: SelectorOption[] = [];
+
+    if (type === 'movie') {
+      activeIndex = movieSecondaryOptions.findIndex(
+        (opt) => opt.value === secondarySelection
+      );
+      options = movieSecondaryOptions;
+    } else if (type === 'tv') {
+      activeIndex = tvOptions.findIndex(
+        (opt) => opt.value === secondarySelection
+      );
+      options = tvOptions;
+    } else if (type === 'show') {
+      activeIndex = showOptions.findIndex(
+        (opt) => opt.value === secondarySelection
+      );
+      options = showOptions;
+    }
+
+    if (options.length > 0) {
+      const cleanup = updateIndicatorPosition(
+        activeIndex,
+        secondaryContainerRef,
+        secondaryButtonRefs,
+        setSecondaryIndicatorStyle
+      );
+      return cleanup;
+    }
+  }, [secondarySelection]);
 
   // 渲染胶囊式选择器
   const renderCapsuleSelector = (
@@ -308,8 +278,6 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     onChange: (value: string) => void,
     isPrimary = false
   ) => {
-    if (options.length === 0) return null;
-    
     const containerRef = isPrimary
       ? primaryContainerRef
       : secondaryContainerRef;
@@ -317,11 +285,6 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     const indicatorStyle = isPrimary
       ? primaryIndicatorStyle
       : secondaryIndicatorStyle;
-    
-    // 确保有有效的activeValue
-    const validActiveValue = activeValue && options.some(opt => opt.value === activeValue)
-      ? activeValue
-      : options[0].value;
 
     return (
       <div
@@ -340,7 +303,7 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
         )}
 
         {options.map((option, index) => {
-          const isActive = validActiveValue === option.value;
+          const isActive = activeValue === option.value;
           return (
             <button
               key={option.value}
@@ -353,7 +316,6 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
                   ? 'text-gray-900 dark:text-gray-100 cursor-default'
                   : 'text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 cursor-pointer'
               }`}
-              aria-pressed={isActive}
             >
               {option.label}
             </button>
@@ -363,32 +325,78 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     );
   };
 
-  const { primary: primaryOptions, secondary: secondaryOptions } = getOptionsByType();
-  // 根据类型确定两级选择器的标签文本
-  const getSelectorLabels = () => {
-    switch (type) {
-      case 'movie':
-        return { primary: '分类', secondary: '地区' };
-      case 'tv':
-        return { primary: '筛选', secondary: '类型' };
-      case 'show':
-        return { primary: '筛选', secondary: '类型' };
-      default:
-        return { primary: '一级', secondary: '二级' };
-    }
-  };
-  
-  const { primary: primaryLabel, secondary: secondaryLabel } = getSelectorLabels();
-
   return (
     <div className='space-y-4 sm:space-y-6'>
-      {/* 所有类型都显示两级选择器 */}
-      <div className='space-y-3 sm:space-y-4'>
-        {/* 一级选择器 */}
+      {/* 电影类型 - 显示两级选择器 */}
+      {type === 'movie' && (
+        <div className='space-y-3 sm:space-y-4'>
+          {/* 一级选择器 */}
+          <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+            <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+              分类
+            </span>
+            <div className='overflow-x-auto'>
+              {renderCapsuleSelector(
+                moviePrimaryOptions,
+                primarySelection || moviePrimaryOptions[0].value,
+                onPrimaryChange,
+                true
+              )}
+            </div>
+          </div>
+
+          {/* 二级选择器 */}
+          <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+            <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+              地区
+            </span>
+            <div className='overflow-x-auto'>
+              {renderCapsuleSelector(
+                movieSecondaryOptions,
+                secondarySelection || movieSecondaryOptions[0].value,
+                onSecondaryChange,
+                false
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 电视剧类型 - 只显示一级选择器 */}
+      {type === 'tv' && (
         <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
           <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
-            {primaryLabel}
+            类型
           </span>
           <div className='overflow-x-auto'>
             {renderCapsuleSelector(
-              primaryOptions,
+              tvOptions,
+              secondarySelection || tvOptions[0].value,
+              onSecondaryChange,
+              false
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* 综艺类型 - 只显示一级选择器 */}
+      {type === 'show' && (
+        <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+          <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+            类型
+          </span>
+          <div className='overflow-x-auto'>
+            {renderCapsuleSelector(
+              showOptions,
+              secondarySelection || showOptions[0].value,
+              onSecondaryChange,
+              false
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default DoubanSelector;
