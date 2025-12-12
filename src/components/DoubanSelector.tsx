@@ -4,17 +4,22 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 
+import MultiLevelSelector from './MultiLevelSelector';
+import WeekdaySelector from './WeekdaySelector';
+
 interface SelectorOption {
   label: string;
   value: string;
 }
 
 interface DoubanSelectorProps {
-  type: 'movie' | 'tv' | 'show';
+  type: 'movie' | 'tv' | 'show' | 'anime';
   primarySelection?: string;
   secondarySelection?: string;
   onPrimaryChange: (value: string) => void;
   onSecondaryChange: (value: string) => void;
+  onMultiLevelChange?: (values: Record<string, string>) => void;
+  onWeekdayChange: (weekday: string) => void;
 }
 
 const DoubanSelector: React.FC<DoubanSelectorProps> = ({
@@ -23,6 +28,8 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
   secondarySelection,
   onPrimaryChange,
   onSecondaryChange,
+  onMultiLevelChange,
+  onWeekdayChange,
 }) => {
   // 为不同的选择器创建独立的refs和状态
   const primaryContainerRef = useRef<HTMLDivElement>(null);
@@ -41,16 +48,11 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
 
   // 电影的一级选择器选项
   const moviePrimaryOptions: SelectorOption[] = [
+    { label: '全部', value: '全部' },
     { label: '热门电影', value: '热门' },
     { label: '最新电影', value: '最新' },
     { label: '豆瓣高分', value: '豆瓣高分' },
     { label: '冷门佳片', value: '冷门佳片' },
-    { label: 'Netflix', value: 'Netflix' },
-    { label: '迪斯尼', value: 'movie_disney' },
-    { label: '皮克斯', value: 'movie_pixar' },
-    { label: '漫威', value: 'movie_marvel' },
-    { label: 'DC', value: 'movie_dc' },
-    { label: '环球影业', value: 'movie_universal' },
   ];
 
   // 电影的二级选择器选项
@@ -60,76 +62,49 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     { label: '欧美', value: '欧美' },
     { label: '韩国', value: '韩国' },
     { label: '日本', value: '日本' },
-    { label: '剧情', value: 'movie_drama' },
-    { label: '喜剧', value: 'movie_comedy' },
-    { label: '动作', value: 'movie_action' },
-    { label: '爱情', value: 'movie_romance' },
-    { label: '科幻', value: 'movie_sci_fi' },
-    { label: '悬疑', value: 'movie_suspense' },
-    { label: '惊悚', value: 'movie_thriller' },
-    { label: '恐怖', value: 'movie_horror' },
-    { label: '动画', value: 'movie_animation' },
-    { label: '奇幻', value: 'movie_fantasy' },
-    { label: '冒险', value: 'movie_adventure' },
-    { label: '犯罪', value: 'movie_crime' },
-    { label: '战争', value: 'movie_war' },
-  { label: '传记', value: 'movie_biography' },
-  { label: '历史', value: 'movie_history' },
-  { label: '纪录片', value: 'movie_documentary' },
-  { label: '家庭', value: 'movie_family' },
-  { label: '音乐', value: 'movie_music' },
-  { label: '歌舞', value: 'movie_musical' },
-  { label: '武侠', value: 'movie_wuxia' },
-  { label: '古装', value: 'movie_costume' },
-  { label: '西部', value: 'movie_western' },
-  { label: '灾难', value: 'movie_disaster' },
-  { label: '运动', value: 'movie_sports' },
-  { label: '励志', value: 'movie_inspirational' },
-  { label: '治愈', value: 'movie_healing' },
-  
-  // 小众/风格化类型（可选补充）
-  { label: '黑色幽默', value: 'movie_black_humor' },
-  { label: '荒诞', value: 'movie_absurd' },
-  { label: '文艺', value: 'movie_literary' },
-  { label: '实验电影', value: 'movie_experimental' }
   ];
 
-  // 电视剧选择器选项
-  const tvOptions: SelectorOption[] = [
+  // 电视剧一级选择器选项
+  const tvPrimaryOptions: SelectorOption[] = [
+    { label: '全部', value: '全部' },
+    { label: '最近热门', value: '最近热门' },
+  ];
+
+  // 电视剧二级选择器选项
+  const tvSecondaryOptions: SelectorOption[] = [
     { label: '全部', value: 'tv' },
     { label: '国产', value: 'tv_domestic' },
     { label: '欧美', value: 'tv_american' },
     { label: '日本', value: 'tv_japanese' },
     { label: '韩国', value: 'tv_korean' },
-    { label: '泰国', value: 'tv_thai' },
     { label: '动漫', value: 'tv_animation' },
     { label: '纪录片', value: 'tv_documentary' },
-    { label: '国产动画', value: 'tv_chinese_animation' },
-    { label: '日本动画', value: 'tv_japanese_animation' },
-    { label: '欧美动画', value: 'tv_european_american_animation' },
-    { label: '韩国动画', value: 'tv_korean_animation' },
-    { label: '漫威剧集', value: 'tv_marvel' },
-    { label: 'DC剧集', value: 'tv_dc' },
   ];
 
-  // 综艺选择器选项
-  const showOptions: SelectorOption[] = [
+  // 综艺一级选择器选项
+  const showPrimaryOptions: SelectorOption[] = [
+    { label: '全部', value: '全部' },
+    { label: '最近热门', value: '最近热门' },
+  ];
+
+  // 综艺二级选择器选项
+  const showSecondaryOptions: SelectorOption[] = [
     { label: '全部', value: 'show' },
     { label: '国内', value: 'show_domestic' },
     { label: '国外', value: 'show_foreign' },
-    { label: '  韩国', value: 'show_korea' },
-    { label: '  真人秀', value: 'show_reality' },
-    { label: '  脱口秀', value: 'show_talk_show' },
-    { label: '  选秀', value: 'show_talent' },
-    { label: '  音乐', value: 'show_music' },
-    { label: '  美食', value: 'show_food' },
-    { label: '  旅行', value: 'show_travel' },
-    { label: '  亲子', value: 'show_parent_child' },
-    { label: '  搞笑', value: 'show_comedy' },
-    { label: '热门', value: 'show_hot' },
-    { label: '  高分综艺', value: 'show_high_score' },
-    { label: '  新上线', value: 'show_new' },
   ];
+
+  // 动漫一级选择器选项
+  const animePrimaryOptions: SelectorOption[] = [
+    { label: '每日放送', value: '每日放送' },
+    { label: '番剧', value: '番剧' },
+    { label: '剧场版', value: '剧场版' },
+  ];
+
+  // 处理多级选择器变化
+  const handleMultiLevelChange = (values: Record<string, string>) => {
+    onMultiLevelChange?.(values);
+  };
 
   // 更新指示器位置的通用函数
   const updateIndicatorPosition = (
@@ -178,6 +153,37 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
         primaryButtonRefs,
         setPrimaryIndicatorStyle
       );
+    } else if (type === 'tv') {
+      const activeIndex = tvPrimaryOptions.findIndex(
+        (opt) => opt.value === (primarySelection || tvPrimaryOptions[1].value)
+      );
+      updateIndicatorPosition(
+        activeIndex,
+        primaryContainerRef,
+        primaryButtonRefs,
+        setPrimaryIndicatorStyle
+      );
+    } else if (type === 'anime') {
+      const activeIndex = animePrimaryOptions.findIndex(
+        (opt) =>
+          opt.value === (primarySelection || animePrimaryOptions[0].value)
+      );
+      updateIndicatorPosition(
+        activeIndex,
+        primaryContainerRef,
+        primaryButtonRefs,
+        setPrimaryIndicatorStyle
+      );
+    } else if (type === 'show') {
+      const activeIndex = showPrimaryOptions.findIndex(
+        (opt) => opt.value === (primarySelection || showPrimaryOptions[1].value)
+      );
+      updateIndicatorPosition(
+        activeIndex,
+        primaryContainerRef,
+        primaryButtonRefs,
+        setPrimaryIndicatorStyle
+      );
     }
 
     // 副选择器初始位置
@@ -188,12 +194,14 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
           opt.value === (secondarySelection || movieSecondaryOptions[0].value)
       );
     } else if (type === 'tv') {
-      secondaryActiveIndex = tvOptions.findIndex(
-        (opt) => opt.value === (secondarySelection || tvOptions[0].value)
+      secondaryActiveIndex = tvSecondaryOptions.findIndex(
+        (opt) =>
+          opt.value === (secondarySelection || tvSecondaryOptions[0].value)
       );
     } else if (type === 'show') {
-      secondaryActiveIndex = showOptions.findIndex(
-        (opt) => opt.value === (secondarySelection || showOptions[0].value)
+      secondaryActiveIndex = showSecondaryOptions.findIndex(
+        (opt) =>
+          opt.value === (secondarySelection || showSecondaryOptions[0].value)
       );
     }
 
@@ -220,6 +228,39 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
         setPrimaryIndicatorStyle
       );
       return cleanup;
+    } else if (type === 'tv') {
+      const activeIndex = tvPrimaryOptions.findIndex(
+        (opt) => opt.value === primarySelection
+      );
+      const cleanup = updateIndicatorPosition(
+        activeIndex,
+        primaryContainerRef,
+        primaryButtonRefs,
+        setPrimaryIndicatorStyle
+      );
+      return cleanup;
+    } else if (type === 'anime') {
+      const activeIndex = animePrimaryOptions.findIndex(
+        (opt) => opt.value === primarySelection
+      );
+      const cleanup = updateIndicatorPosition(
+        activeIndex,
+        primaryContainerRef,
+        primaryButtonRefs,
+        setPrimaryIndicatorStyle
+      );
+      return cleanup;
+    } else if (type === 'show') {
+      const activeIndex = showPrimaryOptions.findIndex(
+        (opt) => opt.value === primarySelection
+      );
+      const cleanup = updateIndicatorPosition(
+        activeIndex,
+        primaryContainerRef,
+        primaryButtonRefs,
+        setPrimaryIndicatorStyle
+      );
+      return cleanup;
     }
   }, [primarySelection]);
 
@@ -234,15 +275,15 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
       );
       options = movieSecondaryOptions;
     } else if (type === 'tv') {
-      activeIndex = tvOptions.findIndex(
+      activeIndex = tvSecondaryOptions.findIndex(
         (opt) => opt.value === secondarySelection
       );
-      options = tvOptions;
+      options = tvSecondaryOptions;
     } else if (type === 'show') {
-      activeIndex = showOptions.findIndex(
+      activeIndex = showSecondaryOptions.findIndex(
         (opt) => opt.value === secondarySelection
       );
-      options = showOptions;
+      options = showSecondaryOptions;
     }
 
     if (options.length > 0) {
@@ -330,54 +371,193 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
             </div>
           </div>
 
-          {/* 二级选择器 */}
+          {/* 二级选择器 - 只在非"全部"时显示 */}
+          {primarySelection !== '全部' ? (
+            <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+              <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+                地区
+              </span>
+              <div className='overflow-x-auto'>
+                {renderCapsuleSelector(
+                  movieSecondaryOptions,
+                  secondarySelection || movieSecondaryOptions[0].value,
+                  onSecondaryChange,
+                  false
+                )}
+              </div>
+            </div>
+          ) : (
+            /* 多级选择器 - 只在选中"全部"时显示 */
+            <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+              <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+                筛选
+              </span>
+              <div className='overflow-x-auto'>
+                <MultiLevelSelector
+                  key={`${type}-${primarySelection}`}
+                  onChange={handleMultiLevelChange}
+                  contentType={type}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 电视剧类型 - 显示两级选择器 */}
+      {type === 'tv' && (
+        <div className='space-y-3 sm:space-y-4'>
+          {/* 一级选择器 */}
           <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
             <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
-              地区
+              分类
             </span>
             <div className='overflow-x-auto'>
               {renderCapsuleSelector(
-                movieSecondaryOptions,
-                secondarySelection || movieSecondaryOptions[0].value,
-                onSecondaryChange,
-                false
+                tvPrimaryOptions,
+                primarySelection || tvPrimaryOptions[1].value,
+                onPrimaryChange,
+                true
               )}
             </div>
           </div>
+
+          {/* 二级选择器 - 只在选中"最近热门"时显示，选中"全部"时显示多级选择器 */}
+          {(primarySelection || tvPrimaryOptions[1].value) === '最近热门' ? (
+            <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+              <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+                类型
+              </span>
+              <div className='overflow-x-auto'>
+                {renderCapsuleSelector(
+                  tvSecondaryOptions,
+                  secondarySelection || tvSecondaryOptions[0].value,
+                  onSecondaryChange,
+                  false
+                )}
+              </div>
+            </div>
+          ) : (primarySelection || tvPrimaryOptions[1].value) === '全部' ? (
+            /* 多级选择器 - 只在选中"全部"时显示 */
+            <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+              <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+                筛选
+              </span>
+              <div className='overflow-x-auto'>
+                <MultiLevelSelector
+                  key={`${type}-${primarySelection}`}
+                  onChange={handleMultiLevelChange}
+                  contentType={type}
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       )}
 
-      {/* 电视剧类型 - 只显示一级选择器 */}
-      {type === 'tv' && (
-        <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
-          <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
-            类型
-          </span>
-          <div className='overflow-x-auto'>
-            {renderCapsuleSelector(
-              tvOptions,
-              secondarySelection || tvOptions[0].value,
-              onSecondaryChange,
-              false
-            )}
+      {/* 动漫类型 - 显示一级选择器和多级选择器 */}
+      {type === 'anime' && (
+        <div className='space-y-3 sm:space-y-4'>
+          <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+            <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+              分类
+            </span>
+            <div className='overflow-x-auto'>
+              {renderCapsuleSelector(
+                animePrimaryOptions,
+                primarySelection || animePrimaryOptions[0].value,
+                onPrimaryChange,
+                true
+              )}
+            </div>
           </div>
+
+          {/* 筛选部分 - 根据一级选择器显示不同内容 */}
+          {(primarySelection || animePrimaryOptions[0].value) === '每日放送' ? (
+            // 每日放送分类下显示星期选择器
+            <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+              <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+                星期
+              </span>
+              <div className='overflow-x-auto'>
+                <WeekdaySelector onWeekdayChange={onWeekdayChange} />
+              </div>
+            </div>
+          ) : (
+            // 其他分类下显示原有的筛选功能
+            <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+              <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+                筛选
+              </span>
+              <div className='overflow-x-auto'>
+                {(primarySelection || animePrimaryOptions[0].value) ===
+                '番剧' ? (
+                  <MultiLevelSelector
+                    key={`anime-tv-${primarySelection}`}
+                    onChange={handleMultiLevelChange}
+                    contentType='anime-tv'
+                  />
+                ) : (
+                  <MultiLevelSelector
+                    key={`anime-movie-${primarySelection}`}
+                    onChange={handleMultiLevelChange}
+                    contentType='anime-movie'
+                  />
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
-      {/* 综艺类型 - 只显示一级选择器 */}
+      {/* 综艺类型 - 显示两级选择器 */}
       {type === 'show' && (
-        <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
-          <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
-            类型
-          </span>
-          <div className='overflow-x-auto'>
-            {renderCapsuleSelector(
-              showOptions,
-              secondarySelection || showOptions[0].value,
-              onSecondaryChange,
-              false
-            )}
+        <div className='space-y-3 sm:space-y-4'>
+          {/* 一级选择器 */}
+          <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+            <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+              分类
+            </span>
+            <div className='overflow-x-auto'>
+              {renderCapsuleSelector(
+                showPrimaryOptions,
+                primarySelection || showPrimaryOptions[1].value,
+                onPrimaryChange,
+                true
+              )}
+            </div>
           </div>
+
+          {/* 二级选择器 - 只在选中"最近热门"时显示，选中"全部"时显示多级选择器 */}
+          {(primarySelection || showPrimaryOptions[1].value) === '最近热门' ? (
+            <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+              <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+                类型
+              </span>
+              <div className='overflow-x-auto'>
+                {renderCapsuleSelector(
+                  showSecondaryOptions,
+                  secondarySelection || showSecondaryOptions[0].value,
+                  onSecondaryChange,
+                  false
+                )}
+              </div>
+            </div>
+          ) : (primarySelection || showPrimaryOptions[1].value) === '全部' ? (
+            /* 多级选择器 - 只在选中"全部"时显示 */
+            <div className='flex flex-col sm:flex-row sm:items-center gap-2'>
+              <span className='text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[48px]'>
+                筛选
+              </span>
+              <div className='overflow-x-auto'>
+                <MultiLevelSelector
+                  key={`${type}-${primarySelection}`}
+                  onChange={handleMultiLevelChange}
+                  contentType={type}
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       )}
     </div>
