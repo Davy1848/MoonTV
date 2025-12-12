@@ -45,6 +45,12 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     { label: '最新电影', value: '最新' },
     { label: '豆瓣高分', value: '豆瓣高分' },
     { label: '冷门佳片', value: '冷门佳片' },
+    { label: 'Netflix', value: 'Netflix' },
+    { label: '迪斯尼', value: 'movie_disney' },
+    { label: '皮克斯', value: 'movie_pixar' },
+    { label: '漫威', value: 'movie_marvel' },
+    { label: 'DC', value: 'movie_dc' },
+    { label: '环球影业', value: 'movie_universal' },
   ];
 
   // 电影的二级选择器选项
@@ -54,6 +60,38 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     { label: '欧美', value: '欧美' },
     { label: '韩国', value: '韩国' },
     { label: '日本', value: '日本' },
+    { label: '剧情', value: 'movie_drama' },
+    { label: '喜剧', value: 'movie_comedy' },
+    { label: '动作', value: 'movie_action' },
+    { label: '爱情', value: 'movie_romance' },
+    { label: '科幻', value: 'movie_sci_fi' },
+    { label: '悬疑', value: 'movie_suspense' },
+    { label: '惊悚', value: 'movie_thriller' },
+    { label: '恐怖', value: 'movie_horror' },
+    { label: '动画', value: 'movie_animation' },
+    { label: '奇幻', value: 'movie_fantasy' },
+    { label: '冒险', value: 'movie_adventure' },
+    { label: '犯罪', value: 'movie_crime' },
+    { label: '战争', value: 'movie_war' },
+  { label: '传记', value: 'movie_biography' },
+  { label: '历史', value: 'movie_history' },
+  { label: '纪录片', value: 'movie_documentary' },
+  { label: '家庭', value: 'movie_family' },
+  { label: '音乐', value: 'movie_music' },
+  { label: '歌舞', value: 'movie_musical' },
+  { label: '武侠', value: 'movie_wuxia' },
+  { label: '古装', value: 'movie_costume' },
+  { label: '西部', value: 'movie_western' },
+  { label: '灾难', value: 'movie_disaster' },
+  { label: '运动', value: 'movie_sports' },
+  { label: '励志', value: 'movie_inspirational' },
+  { label: '治愈', value: 'movie_healing' },
+  
+  // 小众/风格化类型（可选补充）
+  { label: '黑色幽默', value: 'movie_black_humor' },
+  { label: '荒诞', value: 'movie_absurd' },
+  { label: '文艺', value: 'movie_literary' },
+  { label: '实验电影', value: 'movie_experimental' }
   ];
 
   // 电视剧选择器选项
@@ -63,8 +101,15 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     { label: '欧美', value: 'tv_american' },
     { label: '日本', value: 'tv_japanese' },
     { label: '韩国', value: 'tv_korean' },
+    { label: '泰国', value: 'tv_thai' },
     { label: '动漫', value: 'tv_animation' },
     { label: '纪录片', value: 'tv_documentary' },
+    { label: '国产动画', value: 'tv_chinese_animation' },
+    { label: '日本动画', value: 'tv_japanese_animation' },
+    { label: '欧美动画', value: 'tv_european_american_animation' },
+    { label: '韩国动画', value: 'tv_korean_animation' },
+    { label: '漫威剧集', value: 'tv_marvel' },
+    { label: 'DC剧集', value: 'tv_dc' },
   ];
 
   // 综艺选择器选项
@@ -72,6 +117,18 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
     { label: '全部', value: 'show' },
     { label: '国内', value: 'show_domestic' },
     { label: '国外', value: 'show_foreign' },
+    { label: '  韩国', value: 'show_korea' },
+    { label: '  真人秀', value: 'show_reality' },
+    { label: '  脱口秀', value: 'show_talk_show' },
+    { label: '  选秀', value: 'show_talent' },
+    { label: '  音乐', value: 'show_music' },
+    { label: '  美食', value: 'show_food' },
+    { label: '  旅行', value: 'show_travel' },
+    { label: '  亲子', value: 'show_parent_child' },
+    { label: '  搞笑', value: 'show_comedy' },
+    { label: '热门', value: 'show_hot' },
+    { label: '  高分综艺', value: 'show_high_score' },
+    { label: '  新上线', value: 'show_new' },
   ];
 
   // 更新指示器位置的通用函数
