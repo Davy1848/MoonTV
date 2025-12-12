@@ -1,4 +1,6 @@
 {
+  "cache_time": 7200,
+  "api_site": {
   "maotaizy": {
     "api": "https://caiji.maotaizy.cc/api.php/provide/vod/at/json",
     "name": "茅台资源",
@@ -98,5 +100,6 @@
     "api": "https://wwzy.tv/api.php/provide/vod",
     "name": "旺旺短剧",
     "detail": "https://wwzy.tv"
+    }
   }
 }
