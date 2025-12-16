@@ -1,8 +1,11 @@
 {
   "cache_time": 7200,
   "api_layers": {
-    "core": ["zuid", "wujin", "bfzy", "tyyszy", "zy360", "jisu", "dbzy", "mozhua", "mdzy", "ikun", "wwzy"],
-    "backup": ["maotaizy", "dyttzy", "ruyi", "wolong", "lzi", "xiaomaomi", "heimuer", "yinghua", "youzhi", "kudian", "yingku", "kuaiche", "guangsu", "laoya", "beidou", "tiankong", "okzy", "okzy_kuyun", "okzy_ckm3u8", "hongniu", "lehuo", "tangrenjie", "tantan", "haiwaikan", "baiduyun", "uku", "fanqie", "8090zy", "qilin", "kuaibo"]
+    "all": ["zuid", "wujin", "bfzy", "tyyszy", "zy360", "jisu", "dbzy", "mozhua", "mdzy", "ikun", "wwzy", 
+            "maotaizy", "wolong", "lzi", "xiaomaomi", "heimuer", "yinghua", "youzhi", "kudian", "yingku", 
+            "kuaiche", "guangsu", "laoya", "beidou", "tiankong", "okzy", "okzy_kuyun", "okzy_ckm3u8", 
+            "hongniu", "lehuo", "tangrenjie", "tantan", "haiwaikan", "baiduyun", "uku", "fanqie", 
+            "8090zy", "qilin", "kuaibo"]
   },
   "api_site": {
     "zuid": {
