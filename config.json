@@ -56,16 +56,6 @@
       "name": "茅台资源",
       "detail": "https://maotaizy.cc"
     },
-    "dyttzy": {
-      "api": "https://caiji.dyttzyapi.com/api.php/provide/vod",
-      "name": "电影天堂资源",
-      "detail": "https://dyttzyapi.com"
-    },
-    "ruyi": {
-      "api": "https://cj.rycjapi.com/api.php/provide/vod",
-      "name": "如意资源",
-      "detail": "https://rycjapi.com"
-    },
     "wolong": {
       "api": "https://collect.wolongzyw.com/api.php/provide/vod",
       "name": "卧龙资源",
