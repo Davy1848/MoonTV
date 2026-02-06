@@ -189,7 +189,7 @@ function HomeClient() {
                   </button>
                 )}
               </div>
-              <div className='justify-start grid grid-cols-3 gap-x-2 gap-y-14 sm:gap-y-20 px-0 sm:px-2 sm:grid-cols-[repeat(auto-fill,_minmax(11rem,_1fr))] sm:gap-x-8'>
+              <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0'>
                 {favoriteItems.map((item) => (
                   <div key={item.id + item.source} className='w-full'>
                     <VideoCard
@@ -243,10 +243,7 @@ function HomeClient() {
                       ))
                     : // 显示真实数据
                       hotMovies.map((movie, index) => (
-                        <div
-                          key={index}
-                          className='min-w-[96px] w-24 sm:min-w-[180px] sm:w-44'
-                        >
+                        <div key={index} className='w-full'>
                           <VideoCard
                             from='douban'
                             title={movie.title}
@@ -291,10 +288,7 @@ function HomeClient() {
                       ))
                     : // 显示真实数据
                       hotTvShows.map((show, index) => (
-                        <div
-                          key={index}
-                          className='min-w-[96px] w-24 sm:min-w-[180px] sm:w-44'
-                        >
+                        <div key={index} className='w-full'>
                           <VideoCard
                             from='douban'
                             title={show.title}
@@ -338,10 +332,7 @@ function HomeClient() {
                       ))
                     : // 显示真实数据
                       hotVarietyShows.map((show, index) => (
-                        <div
-                          key={index}
-                          className='min-w-[96px] w-24 sm:min-w-[180px] sm:w-44'
-                        >
+                        <div key={index} className='w-full'>
                           <VideoCard
                             from='douban'
                             title={show.title}
