@@ -63,8 +63,26 @@ export default function VideoCard({
 
   // 检查海报 URL 是否有效的函数
   const isValidPosterUrl = (url: string): boolean => {
-    if (!url || url === '') return false;
-    return url.startsWith('http://') || url.startsWith('https://');
+    if (!url || url === '' || typeof url !== 'string') return false;
+    
+    // 清理URL，去除首尾空格
+    const trimmedUrl = url.trim();
+    if (trimmedUrl === '') return false;
+    
+    // 检查是否以 http 或 https 开头
+    if (trimmedUrl.startsWith('http://') || trimmedUrl.startsWith('https://')) {
+      // 检查 URL 格式是否基本有效
+      try {
+        new URL(trimmedUrl);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+    
+    // 检查是否为相对路径或其他可能的有效格式
+    // 这里我们暂时认为相对路径是有效的，因为它们可能在特定API上下文中有效
+    return trimmedUrl.length > 0;
   };
 
   const aggregateData = useMemo(() => {
@@ -72,6 +90,10 @@ export default function VideoCard({
     const countMap = new Map<string | number, number>();
     const episodeCountMap = new Map<number, number>();
     const posterMap = new Map<string, number>();
+    
+    // 存储所有有效海报的数组，用于备选
+    const validPosters: string[] = [];
+    
     items.forEach((item) => {
       if (item.douban_id && item.douban_id !== 0) {
         countMap.set(item.douban_id, (countMap.get(item.douban_id) || 0) + 1);
@@ -80,8 +102,10 @@ export default function VideoCard({
       // 无论剧集长度是多少，都计入 episodeCountMap
       episodeCountMap.set(len, (episodeCountMap.get(len) || 0) + 1);
       // 计入有效的海报图片 URL
-      if (item.poster && item.poster !== '' && isValidPosterUrl(item.poster)) {
-        posterMap.set(item.poster, (posterMap.get(item.poster) || 0) + 1);
+      if (item.poster && isValidPosterUrl(item.poster)) {
+        const posterUrl = item.poster.trim();
+        posterMap.set(posterUrl, (posterMap.get(posterUrl) || 0) + 1);
+        validPosters.push(posterUrl);
       }
     });
 
@@ -104,7 +128,9 @@ export default function VideoCard({
     // 计算最常见的海报图片 URL
     const mostFrequentPoster = getMostFrequent(posterMap);
     // 找到第一个有有效海报的项目
-    const firstWithPoster = items.find(item => item.poster && item.poster !== '' && isValidPosterUrl(item.poster));
+    const firstWithPoster = items.find(item => item.poster && isValidPosterUrl(item.poster));
+    // 找到所有有效海报中的第一个
+    const firstValidPoster = validPosters[0];
 
     return {
       first: items[0],
@@ -112,11 +138,13 @@ export default function VideoCard({
       mostFrequentEpisodes,
       mostFrequentPoster,
       firstWithPoster,
+      firstValidPoster,
+      validPostersCount: validPosters.length,
     };
   }, [isAggregate, items]);
 
   const actualTitle = (aggregateData?.first.title ?? title) || '';
-  const actualPoster = (aggregateData?.mostFrequentPoster ?? aggregateData?.firstWithPoster?.poster ?? aggregateData?.first.poster ?? poster) || '';
+  const actualPoster = (aggregateData?.mostFrequentPoster ?? aggregateData?.firstWithPoster?.poster ?? aggregateData?.firstValidPoster ?? aggregateData?.first.poster ?? poster) || '';
   const actualSource = (aggregateData?.first.source ?? source) || '';
   const actualId = (aggregateData?.first.id ?? id) || '';
   const actualDoubanId = String(
@@ -286,6 +314,20 @@ export default function VideoCard({
     return configs[from] || configs.search;
   }, [from, isAggregate, actualDoubanId, rate]);
 
+  // 海报加载状态管理
+  const [posterLoading, setPosterLoading] = useState(false);
+  const [posterError, setPosterError] = useState(false);
+
+  const handlePosterLoad = () => {
+    setPosterLoading(false);
+    setPosterError(false);
+  };
+
+  const handlePosterError = () => {
+    setPosterLoading(false);
+    setPosterError(true);
+  };
+
   return (
     // 搜索页面使用海报卡片布局
     from === 'search' ? (
@@ -295,11 +337,26 @@ export default function VideoCard({
       >
         <div className="w-full h-full bg-gray-900">
           {actualPoster && actualPoster !== '' ? (
-            <img
-              src={processImageUrl(actualPoster)}
-              alt={actualTitle}
-              className="w-full h-full object-cover transition-transform hover:scale-105"
-            />
+            <>
+              {posterLoading && (
+                <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-gray-800">
+                  <span className="text-gray-400 text-sm">加载中...</span>
+                </div>
+              )}
+              <img
+                src={processImageUrl(actualPoster)}
+                alt={actualTitle}
+                className="w-full h-full object-cover transition-transform hover:scale-105"
+                onLoad={handlePosterLoad}
+                onError={handlePosterError}
+                onLoadStart={() => setPosterLoading(true)}
+              />
+              {posterError && (
+                <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-gray-800">
+                  <span className="text-gray-400 text-sm">海报加载失败</span>
+                </div>
+              )}
+            </>
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-gray-800">
               <span className="text-gray-400 text-sm">暂无海报</span>

@@ -32,12 +32,23 @@ export function getImageProxyUrl(): string | null {
  * 处理图片 URL，如果设置了图片代理则使用代理
  */
 export function processImageUrl(originalUrl: string): string {
-  if (!originalUrl) return originalUrl;
+  if (!originalUrl) return '';
 
+  // 清理URL，去除首尾空格
+  const trimmedUrl = originalUrl.trim();
+  
+  // 检查是否为有效的URL格式
+  let processedUrl = trimmedUrl;
+  
+  // 检查是否为相对路径，如果是则可能需要特殊处理
+  // 这里我们暂时保持原样，因为不同API可能有不同的相对路径处理方式
+  
   const proxyUrl = getImageProxyUrl();
-  if (!proxyUrl) return originalUrl;
+  if (proxyUrl) {
+    return `${proxyUrl}${encodeURIComponent(processedUrl)}`;
+  }
 
-  return `${proxyUrl}${encodeURIComponent(originalUrl)}`;
+  return processedUrl;
 }
 
 /**
