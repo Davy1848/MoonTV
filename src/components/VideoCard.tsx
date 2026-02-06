@@ -55,9 +55,10 @@ export default function VideoCard({
   items,
   type = '',
 }: VideoCardProps) {
+  // 未使用的参数，使用下划线前缀标记
+  const _progress = progress;
   const router = useRouter();
   const [favorited, setFavorited] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const isAggregate = from === 'search' && !!items?.length;
 
@@ -343,14 +344,16 @@ export default function VideoCard({
                   <span className="text-gray-400 text-sm">加载中...</span>
                 </div>
               )}
-              <img
-                src={processImageUrl(actualPoster)}
-                alt={actualTitle}
-                className="w-full h-full object-cover transition-transform hover:scale-105"
-                onLoad={handlePosterLoad}
-                onError={handlePosterError}
-                onLoadStart={() => setPosterLoading(true)}
-              />
+              <div className="relative w-full h-full">
+                <img
+                  src={processImageUrl(actualPoster)}
+                  alt={actualTitle}
+                  className="w-full h-full object-cover transition-transform hover:scale-105"
+                  onLoad={handlePosterLoad}
+                  onError={handlePosterError}
+                  onLoadStart={() => setPosterLoading(true)}
+                />
+              </div>
               {posterError && (
                 <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-gray-800">
                   <span className="text-gray-400 text-sm">海报加载失败</span>
