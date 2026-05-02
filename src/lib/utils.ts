@@ -34,13 +34,27 @@ export function getImageProxyUrl(): string | null {
 export function processImageUrl(originalUrl: string): string {
   if (!originalUrl) return originalUrl;
 
-  // TMDB海报国内替换可用镜像，只改海报，不动影片数据
-  originalUrl = originalUrl.replace("https://image.tmdb.org/t/p/", "https://tmdb.143223.xyz/p/");
+  // ✅ 稳定国内 TMDB 海报镜像（最稳推荐）
+  originalUrl = originalUrl.replace("https://image.tmdb.org/t/p/", "https://img.tmdb.org/t/p/");
 
+  // ✅ 豆瓣图片反爬虫处理：使用内置代理
+  if (originalUrl.includes("doubanio.com")) {
+    // 优先使用图片代理
+    const proxyUrl = getImageProxyUrl();
+    if (proxyUrl) {
+      return `${proxyUrl}${encodeURIComponent(originalUrl)}`;
+    }
+    // 使用内置代理
+    return `/api/image-proxy?url=${encodeURIComponent(originalUrl)}`;
+  }
+
+  // 其他图片优先使用图片代理
   const proxyUrl = getImageProxyUrl();
-  if (!proxyUrl) return originalUrl;
+  if (proxyUrl) {
+    return `${proxyUrl}${encodeURIComponent(originalUrl)}`;
+  }
 
-  return `${proxyUrl}${encodeURIComponent(originalUrl)}`;
+  return originalUrl;
 }
 
 /**

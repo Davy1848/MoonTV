@@ -51,7 +51,7 @@ export async function checkForUpdates(): Promise<UpdateStatus> {
 async function fetchVersionFromUrl(url: string): Promise<string | null> {
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
+    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3秒超时
 
     const response = await fetch(url, {
       method: 'GET',
@@ -64,13 +64,12 @@ async function fetchVersionFromUrl(url: string): Promise<string | null> {
     clearTimeout(timeoutId);
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      return null;
     }
 
     const version = await response.text();
     return version.trim();
   } catch (error) {
-    console.warn(`从 ${url} 获取版本信息失败:`, error);
     return null;
   }
 }
