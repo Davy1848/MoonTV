@@ -34,6 +34,9 @@ export function getImageProxyUrl(): string | null {
 export function processImageUrl(originalUrl: string): string {
   if (!originalUrl) return originalUrl;
 
+  // TMDB海报国内替换可用镜像，只改海报，不动影片数据
+  originalUrl = originalUrl.replace("https://image.tmdb.org/t/p/", "https://tmdb.143223.xyz/p/");
+
   const proxyUrl = getImageProxyUrl();
   if (!proxyUrl) return originalUrl;
 
@@ -56,7 +59,7 @@ export function getDoubanProxyUrl(): string | null {
 
   const localDoubanProxy = localStorage.getItem('doubanProxyUrl');
   if (localDoubanProxy != null) {
-    return localDoubanProxy.trim() ? localDoubanProxy.trim() : null;
+    return localDoubanProxy.trim() ? localDoubanProxy : null;
   }
 
   // 如果未设置，则使用全局对象
