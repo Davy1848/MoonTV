@@ -58,6 +58,7 @@ export default function VideoCard({
   const router = useRouter();
   const [favorited, setFavorited] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const isAggregate = from === 'search' && !!items?.length;
 
@@ -275,16 +276,44 @@ export default function VideoCard({
       {/* 海报容器 */}
       <div className='relative aspect-[2/3] overflow-hidden rounded-lg'>
         {/* 骨架屏 */}
-        {!isLoading && <ImagePlaceholder aspectRatio='aspect-[2/3]' />}
-        {/* 图片 */}
-        <Image
-          src={processImageUrl(actualPoster)}
-          alt={actualTitle}
-          fill
-          className='object-cover'
-          referrerPolicy='no-referrer'
-          onLoadingComplete={() => setIsLoading(true)}
-        />
+        {!isLoading && !imageError && <ImagePlaceholder aspectRatio='aspect-[2/3]' />}
+        {/* 图片 - 使用 Next.js Image 组件 */}
+        {!imageError && !String(processImageUrl(actualPoster)).startsWith('/api') && (
+          <Image
+            src={processImageUrl(actualPoster)}
+            alt={actualTitle}
+            fill
+            className='object-cover'
+            referrerPolicy='no-referrer'
+            onLoad={() => setIsLoading(true)}
+            onError={() => {
+              setImageError(true);
+              setIsLoading(true);
+            }}
+          />
+        )}
+        {/* 图片 - 使用原生 img 标签处理代理图片 */}
+        {!imageError && String(processImageUrl(actualPoster)).startsWith('/api') && (
+          <img
+            src={processImageUrl(actualPoster)}
+            alt={actualTitle}
+            className='absolute inset-0 w-full h-full object-cover'
+            onLoad={() => setIsLoading(true)}
+            onError={() => {
+              setImageError(true);
+              setIsLoading(true);
+            }}
+          />
+        )}
+        {/* 图片加载失败时显示占位文字 */}
+        {imageError && (
+          <div className='absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center'>
+            <div className='text-center p-4'>
+              <div className='text-4xl mb-2'>🎬</div>
+              <div className='text-xs text-gray-500 dark:text-gray-400'>{actualTitle}</div>
+            </div>
+          </div>
+        )}
 
         {/* 悬浮遮罩 */}
         <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100' />
