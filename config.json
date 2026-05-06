@@ -269,7 +269,7 @@
   },
   "custom_category": [
   {"name":"动画","type":"movie","query":"动画"},
-  {"name":"国产动画","type":"movie","query":"国产动画"},
+  {"name":"国产动画","type":"movie","query":"国产动画,国漫"},
   {"name":"Disney","type":"movie","query":"Disney"},
   {"name":"Pixar","type":"movie","query":"Pixar"},
   {"name":"Marvel","type":"movie","query":"Marvel"},
