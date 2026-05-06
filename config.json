@@ -268,20 +268,13 @@
     }
   },
   "custom_category": [
-    {"name":"动画","type":"movie","query":"动画"},
-    {"name":"国产动画","type":"movie","query":"国产动画,国漫"},
-    {"name":"动漫电影","type":"movie","query":"动画电影"},
-    {"name":"Netflix","type":"movie","query":"Netflix"},
-    {"name":"HBO Max","type":"movie","query":"HBO,Max,HBO Max"},
-    {"name":"Paramount","type":"movie","query":"Paramount,派拉蒙"},
-    {"name":"Disney","type":"movie","query":"Disney,迪士尼"},
-    {"name":"Pixar","type":"movie","query":"Pixar,皮克斯"},
-    {"name":"Marvel","type":"movie","query":"Marvel,漫威"},
-    {"name":"DC","type":"movie","query":"DC,DC漫画,DC宇宙"},
-    {"name":"华纳兄弟","type":"movie","query":"华纳,华纳兄弟,WB"},
-    {"name":"环球影业","type":"movie","query":"环球,环球影业,Universal"},
-    {"name":"索尼影视","type":"movie","query":"索尼,Sony,索尼影视"},
-    {"name":"福斯影业","type":"movie","query":"福斯,二十世纪福斯,20th Century"},
-    {"name":"周星驰","type":"movie","query":"周星驰,星爷"}
+  {"name":"动画","type":"movie","query":"动画"},
+  {"name":"国产动画","type":"movie","query":"国产动画,国漫"},
+  {"name":"Disney","type":"movie","query":"Disney"},
+  {"name":"Pixar","type":"movie","query":"Pixar"},
+  {"name":"Marvel","type":"movie","query":"Marvel"},
+  {"name":"DC","type":"movie","query":"DC"},
+  {"name":"Netflix","type":"movie","query":"Netflix"},
+  {"name":"周星驰","type":"movie","query":"周星驰"}
 ]
 }
