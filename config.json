@@ -270,12 +270,9 @@
   "custom_category": [
   {"name":"动画","type":"movie","query":"动画"},
   {"name":"国产动画","type":"movie","query":"国产动画"},
-  {"name":"腾讯动漫","type":"movie","query":"腾讯动漫"},
-  {"name":"B站动漫","type":"movie","query":"bilibili动漫"},
-  {"name":"优酷动漫","type":"movie","query":"优酷动漫"},
   {"name":"Disney","type":"movie","query":"Disney"},
   {"name":"Pixar","type":"movie","query":"Pixar"},
-  {"name":"Marvel&DC","type":"movie","query":"Marvel,DC"},
+  {"name":"Marvel","type":"movie","query":"Marvel"},
   {"name":"Netflix","type":"movie","query":"Netflix"},
   {"name":"周星驰","type":"movie","query":"周星驰"}
 ]
