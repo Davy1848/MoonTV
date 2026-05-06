@@ -294,7 +294,7 @@
     {"name":"韩剧","type":"tv","query":"韩剧"},
     {"name":"日剧","type":"tv","query":"日剧"},
     {"name":"泰剧","type":"tv","query":"泰剧"},
-    {"name":"国产动画","type":"tv","query":"国产动画"},
+    {"name":"国漫","type":"tv","query":"国漫"},
     {"name":"日本动画","type":"tv","query":"日本动画"},
     {"name":"综艺","type":"tv","query":"综艺"},
     {"name":"纪录片","type":"tv","query":"纪录片"}
