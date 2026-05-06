@@ -273,6 +273,7 @@
   {"name":"Disney","type":"movie","query":"Disney"},
   {"name":"Pixar","type":"movie","query":"Pixar"},
   {"name":"Marvel","type":"movie","query":"Marvel"},
+  {"name":"DC","type":"movie","query":"DC"},
   {"name":"Netflix","type":"movie","query":"Netflix"},
   {"name":"周星驰","type":"movie","query":"周星驰"}
 ]
