@@ -1,39 +1,39 @@
-{
-  "cache_time": 7200,
-  "api_site": {
-    "dyttzy": {
-      "api": "http://caiji.dyttzyapi.com/api.php/provide/vod",
-      "name": "电影天堂资源",
-      "detail": "http://caiji.dyttzyapi.com"
-    },
-    "feifan": {
-      "api": "https://api.ffzyapi.com/api.php/provide/vod",
-      "name": "非凡资源",
-      "detail": "https://api.ffzyapi.com"
-    },
-    "maoyan": {
-      "api": "https://api.maoyanapi.top/api.php/provide/vod",
-      "name": "猫眼资源",
-      "detail": "https://api.maoyanapi.top"
-    },
-    "suoni": {
-      "api": "https://suoniapi.com/api.php/provide/vod",
-      "name": "索尼资源",
-      "detail": "https://suoniapi.com"
-    },
-    "zuida": {
-      "api": "https://api.zuidapi.com/api.php/provide/vod",
-      "name": "最大资源",
-      "detail": "https://api.zuidapi.com"
-    },
-    "yaya": {
-      "api": "https://cj.yayazy.net/api.php/provide/vod",
-      "name": "鸭鸭资源",
-      "detail": "https://cj.yayazy.net"
-    },
-    "liangzi": {
-      "api": "https://cj.lziapi.com/api.php/provide/vod",
-      "name": "量子影视",
+{{
+  "cache_time": : 7200,,
+  "api_site": : {
+    "dyttzy": : {
+      "api": : "http://caiji.dyttzyapi.com/api.php/provide/vod",,
+      "name": : "电影天堂资源",,
+      "detail": : "http://caiji.dyttzyapi.com"
+    },,
+    "feifan": : {
+      "api": : "https://api.ffzyapi.com/api.php/provide/vod",,
+      "name": : "非凡资源",,
+      "detail": : "https://api.ffzyapi.com"
+    },,
+    "maoyan": : {
+      "api": : "https://api.maoyanapi.top/api.php/provide/vod",,
+      "name": : "猫眼资源",,
+      "detail": : "https://api.maoyanapi.top"
+    },,
+    "suoni": : {
+      "api": : "https://suoniapi.com/api.php/provide/vod",,
+      "name": : "索尼资源",,
+      "detail": : "https://suoniapi.com"
+    },,
+    "zuida": : {
+      "api": : "https://api.zuidapi.com/api.php/provide/vod",,
+      "name": : "最大资源",,
+      "detail": : "https://api.zuidapi.com"
+    },,
+    "yaya": : {
+      "api": : "https://cj.yayazy.net/api.php/provide/vod",,
+      "name": : "鸭鸭资源",,
+      "detail": : "https://cj.yayazy.net"
+    },,
+    "liangzi": : {
+      "api": : "https://cj.lziapi.com/api.php/provide/vod",,
+      "name": : "量子影视",,
       "detail": "https://cj.lziapi.com"
     },
     "360zy": {
@@ -269,7 +269,7 @@
   },
   "custom_category": [
   {"name":"动画","type":"movie","query":"动画"},
-  {"name":"国产动漫","type":"movie","query":"国产动漫电影"},
+  {"name":"国产动画","type":"movie","query":"国产动画"},
   {"name":"Disney","type":"movie","query":"Disney"},
   {"name":"Pixar","type":"movie","query":"Pixar"},
   {"name":"Marvel","type":"movie","query":"Marvel"},
