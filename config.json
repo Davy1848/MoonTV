@@ -272,7 +272,7 @@
     {"name":"国产动画","type":"movie","query":"国产动画"},
     {"name":"迪士尼","type":"movie","query":"Disney"},
     {"name":"皮克斯","type":"movie","query":"Pixar"},
-    {"name":"漫威DC","type":"movie","query":"Marvel&DC"},
+    {"name":"漫威DC","type":"movie","query":"Marvel,DC"},
     {"name":"Netflix","type":"movie","query":"Netflix"},
     {"name":"周星驰","type":"movie","query":"周星驰"},
     {"name":"动画","type":"tv","query":"动画"}
