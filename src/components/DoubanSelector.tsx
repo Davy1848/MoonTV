@@ -41,10 +41,24 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
 
   // 电影的一级选择器选项
   const moviePrimaryOptions: SelectorOption[] = [
-    { label: '热门电影', value: '热门' },
-    { label: '最新电影', value: '最新' },
+    { label: '热门', value: '热门' },
+    { label: '最新', value: '最新' },
+    { label: '华语', value: '华语' },
+    { label: '动画', value: '动画' },
+    { label: '国产动画', value: '国产动画' },
+    { label: '经典', value: '经典' },
     { label: '豆瓣高分', value: '豆瓣高分' },
     { label: '冷门佳片', value: '冷门佳片' },
+    { label: '欧美', value: '欧美' },
+    { label: '韩国', value: '韩国' },
+    { label: '日本', value: '日本' },
+    { label: '动作', value: '动作' },
+    { label: '喜剧', value: '喜剧' },
+    { label: '爱情', value: '爱情' },
+    { label: '科幻', value: '科幻' },
+    { label: '悬疑', value: '悬疑' },
+    { label: '恐怖', value: '恐怖' },
+    { label: '治愈', value: '治愈' },
   ];
 
   // 电影的二级选择器选项
@@ -59,11 +73,16 @@ const DoubanSelector: React.FC<DoubanSelectorProps> = ({
   // 电视剧选择器选项
   const tvOptions: SelectorOption[] = [
     { label: '全部', value: 'tv' },
-    { label: '国产', value: 'tv_domestic' },
-    { label: '欧美', value: 'tv_american' },
-    { label: '日本', value: 'tv_japanese' },
-    { label: '韩国', value: 'tv_korean' },
-    { label: '动漫', value: 'tv_animation' },
+    { label: '热门', value: '热门' },
+    { label: '国产剧', value: '国产剧' },
+    { label: '港剧', value: '港剧' },
+    { label: '美剧', value: '美剧' },
+    { label: '英剧', value: '英剧' },
+    { label: '韩剧', value: '韩剧' },
+    { label: '日剧', value: '日剧' },
+    { label: '泰剧', value: '泰剧' },
+    { label: '动画', value: '动画' },
+    { label: '日本动画', value: '日本动画' },
     { label: '纪录片', value: 'tv_documentary' },
   ];
 
