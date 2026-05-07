@@ -276,13 +276,5 @@
     {"name":"DC","type":"movie","query":"DC"},
     {"name":"Netflix","type":"movie","query":"Netflix"},
     {"name":"周星驰","type":"movie","query":"周星驰"},
-    {"name":"国产动画","type":"tv","query":"国产动画"},
-    {"name":"动画","type":"tv","query":"动画"},
-    {"name":"Disney","type":"tv","query":"Disney"},
-    {"name":"Pixar","type":"tv","query":"Pixar"},
-    {"name":"Marvel","type":"tv","query":"Marvel"},
-    {"name":"DC","type":"tv","query":"DC"},
-    {"name":"Netflix","type":"tv","query":"Netflix"},
-    {"name":"泰剧","type":"tv","query":"泰剧"}
   ]
 }
